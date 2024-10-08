@@ -1,4 +1,4 @@
-# AI Text Summarization Model
+# AI-Powered Text Summarization Tool
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -23,7 +23,7 @@ Before you begin, ensure you have the following installed:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/text-summarization.git
+   git clone https://github.com/pnav2000/ai-text-summ.git
    cd text-summarization
    
 2. Install the required packages:
