@@ -70,6 +70,12 @@ Before you begin, ensure you have the following installed:
 8. **OS and Time**
 **Description**: Built-in Python modules for interacting with the operating system and handling time-related tasks.
 
+9. **Wekipedia**
+**Description**: The `wikipedia` library in Python provides a simple interface to access and retrieve content from Wikipedia, facilitating easy data extraction.
+
+10. **googletrans==4.0.0-rc1**
+**Description**: The `googletrans==4.0.0-rc1` library is a Python wrapper for Google Translate, allowing seamless translation of text in multiple languages.
+
 ## Use Cases
 - **News Aggregation**: Summarizing news articles in multiple languages for users to quickly grasp current events.
 - **Academic Research**: Helping researchers and students summarize lengthy papers or articles, facilitating quicker comprehension across various languages.
