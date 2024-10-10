@@ -1,0 +1,11 @@
+transformers
+torch
+TensorFlow
+PyPDF2
+python-docx
+tf-keras
+flask
+flask-cors
+wikipedia
+googletrans==4.0.0-rc1
+langdetect
