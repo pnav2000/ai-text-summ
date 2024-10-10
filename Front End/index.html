@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARKAR TOOLS TEAM</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, rgba(0,150,136,1) 0%, rgba(0,200,83,1) 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 650px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #00796B;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f4f7fa;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+            padding: 5px 0;
+        }
+
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+
+        .chat-message.bot {
+            justify-content: flex-start;
+        }
+
+        .chat-bubble {
+            padding: 2px 20px;
+            border-radius: 25px;
+            max-width: 70%;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+
+        .typing-indicator {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+            padding: 5px 0;
+        }
+
+        .typing-indicator .chat-bubble {
+            background-color: #ececec;
+            color: #333;
+            padding: 20px 20px;
+        }
+
+        .chat-bubble.user {
+            background-color: #00796B;
+            color: #fff;
+        }
+
+        .chat-bubble.bot {
+            background-color: #e0f7fa; /* Light blue background for server replies */
+            color: #333;
+            }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .custom-upload-btn,
+        .custom-send-btn {
+            background-color: #004D40;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2em; /* Increased font size for better visibility */
+            width: 45px; /* Increased size of the button */
+            height: 45px; /* Increased size of the button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .custom-upload-btn:hover,
+        .custom-send-btn:hover {
+            background-color: #00251A;
+        }
+
+        #fileUpload {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        textarea {
+            flex: 1;
+            height: 40px; /* Adjusted height for better usability */
+            border-radius: 20px; /* Slightly circular edges */
+            padding: 10px 15px;
+            border: 1px solid #00796B; /* Border to match button color */
+            margin-right: 10px;
+            font-size: 1em;
+            resize: none; /* Prevent resizing */
+            outline: none;
+            background-color: #f4f7fa;
+            color: #333;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        textarea:focus {
+            border-color: #004D40;
+            box-shadow: 0px 0px 5px rgba(0, 150, 136, 0.5);
+        }
+
+        button {
+            display: none; /* Initially hide the button */
+        }
+
+        .filename {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+        }
+
+        .chat-box {
+            scrollbar-width: thin;
+            scrollbar-color: #ccc #f4f7fa;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #f4f7fa;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="chat-container">
+    <div class="header">Parkar Tools Team</div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-container">
+        <div class="upload-btn-wrapper">
+            <button class="custom-upload-btn"><i class="fas fa-paperclip"></i></button>
+            <input type="file" id="fileUpload" accept=".txt,.pdf,.docx,.xlsx">
+        </div>
+        <span id="filename" class="filename"></span>
+        <textarea id="chatInput" placeholder="Type your message..."></textarea>
+        <button class="custom-send-btn" id="sendButton"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+</body>
+
+
+
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
+<script>
+    const socket = io('https://ahmedabad_api.telemetrics.tech');
+    const chatBox = document.getElementById("chatBox");
+    const chatInput = document.getElementById("chatInput");
+    const sendButton = document.getElementById("sendButton");
+    const fileUpload = document.getElementById("fileUpload");
+    const filenameDisplay = document.getElementById("filename");
+    const messageQueue = [];
+    let isProcessingQueue = false;
+
+    socket.on('connect', () => {
+        console.log("Server Has Been Connected")
+    });
+
+    sendButton.addEventListener("click", sendMessage);
+    chatInput.addEventListener("input", toggleSendButtonVisibility);
+    fileUpload.addEventListener("change", toggleSendButtonVisibility);
+
+    chatInput.addEventListener("keydown", function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    socket.on('response', function (data) {
+        messageQueue.push(data);
+        processQueue();
+    });
+
+    socket.on('file_upload_response', function (data) {
+        messageQueue.push(data);
+        processQueue();
+        chatInput.style.display = 'block';
+    });
+
+    const supportedExtensions = ['.txt', '.pdf', '.docx', '.xlsx'];
+
+    function toggleSendButtonVisibility() {
+        const message = chatInput.value.trim();
+        const file = fileUpload.files.length > 0;
+        sendButton.style.display = message || file ? 'inline-flex' : 'none';
+        chatInput.style.display = file ? 'none' : 'block';
+    }
+
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        const file = fileUpload.files[0];
+        if (message) {
+            socket.send(message);
+            addMessage(message, "user");
+            chatInput.value = "";
+            toggleSendButtonVisibility();
+        }
+        if (file) {
+            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2);
+            if (supportedExtensions.includes(`.${fileExtension.toLowerCase()}`)) {
+                uploadFileWebSocket(file);
+                fileUpload.value = "";
+                filenameDisplay.textContent = "";
+                toggleSendButtonVisibility();
+            } else {
+                alert("Unsupported file type! Please upload a valid file.");
+                fileUpload.value = "";
+                filenameDisplay.textContent = "";
+                toggleSendButtonVisibility();
+            }
+        }
+    }
+
+    function uploadFileWebSocket(file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const fileContent = event.target.result.split(',')[1];
+            addMessage(`File sent: ${file.name}`, "user");
+            socket.emit('file_upload', {name: file.name, content: fileContent});
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function addMessage(text, sender) {
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("chat-message", sender);
+        const bubbleElement = document.createElement("div");
+        bubbleElement.classList.add("chat-bubble", sender);
+
+        // Use marked.js to convert Markdown to HTML
+        bubbleElement.innerHTML = marked(text);
+        messageElement.appendChild(bubbleElement);
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function processQueue() {
+        if (isProcessingQueue || messageQueue.length === 0) return;
+        isProcessingQueue = true;
+        const message = messageQueue.shift();
+        addTypingAnimation(message, "bot");
+    }
+
+    function addTypingAnimation(message, sender) {
+        const typingElement = document.createElement("div");
+        typingElement.classList.add("typing-indicator"); // Use the new class for consistent styling
+        const bubbleElement = document.createElement("div");
+        bubbleElement.classList.add("chat-bubble", sender);
+        bubbleElement.textContent = "Typing...";
+        typingElement.appendChild(bubbleElement);
+        chatBox.appendChild(typingElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(() => {
+            chatBox.removeChild(typingElement);
+            addMessage(message, sender);
+            isProcessingQueue = false;
+            processQueue();
+        }, 2000);
+    }
+
+    fileUpload.addEventListener("change", function () {
+        const file = fileUpload.files[0];
+        if (file) {
+            filenameDisplay.textContent = `Selected file: ${file.name}`;
+            toggleSendButtonVisibility();
+        } else {
+            filenameDisplay.textContent = "";
+            toggleSendButtonVisibility();
+        }
+    });
+</script>
